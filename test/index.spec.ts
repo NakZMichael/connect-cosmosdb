@@ -177,6 +177,14 @@ describe('Cosmos Store - Operations', () => {
     });
   });
 
+  it('should not throw errors when it destroy sessions', async () => {
+    const cosmosStore = await CosmosStore.initializeStore(options);
+    const [sessionId] = generateRandomSession();
+
+    // Destroy the session
+    await cosmosStore.destroy(sessionId);
+  });
+
   it('should return all the sessions and the count of sessions in the container', async () => {
     const cosmosStore = await CosmosStore.initializeStore(options);
     for (let i = 0; i < 5; i++) {

@@ -151,6 +151,10 @@ export default class CosmosStore extends Store {
       await this.container.item(sid, sid).delete();
       callback(null);
     } catch (error) {
+      // Do not throw an exception if the session does not exist.
+      if ((error as { code: number })?.code === 404) {
+        return callback(null);
+      }
       callback(error);
     }
   }
